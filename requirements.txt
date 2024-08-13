@@ -1,0 +1,10 @@
+requests 
+beautifulsoup4 
+lxml 
+pandas
+ipykernel
+opencv-python
+matplotlib
+scikit-learn
+scikit-image
+colorthief

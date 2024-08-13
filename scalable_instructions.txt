@@ -1,0 +1,8 @@
+git clone https://github.com/scalabel/scalabel
+cd scalabel
+
+chmod +x scripts/setup_ubuntu.sh scripts/setup_osx.sh scripts/setup_local_dir.sh
+# Or run scripts/setup_osx.sh for MacOS
+. scripts/setup_ubuntu.sh
+. scripts/setup_local_dir.sh
+npm run serve
