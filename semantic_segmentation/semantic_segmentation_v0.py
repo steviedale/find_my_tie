@@ -5,7 +5,7 @@ import numpy as np
 # path = '/Users/sdale/repos/find_my_tie/dataset_v0/51fYgoOqgiL._AC_SX679_.jpg'
 path = '/Users/sdale/repos/find_my_tie/dataset_v0/515n0PK2+VL._AC_SX679_.jpg'
 
-def get_mask(img):
+def get_segmentation_mask(img):
     # Convert to graycsale
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Blur the image for better edge detection
@@ -33,8 +33,20 @@ def get_mask(img):
 
     mask = mask // 255
 
-    return mask
+    ### Remove white color
+    background_points = img[mask == 0].reshape(-1, 3)
+    background_mean = background_points.mean(axis=0)
+    ATOL = 10
+    new_mask = np.logical_and(
+        np.isclose(img[:, :, 0], background_mean[0], atol=ATOL),
+        np.logical_and(
+            np.isclose(img[:, :, 1], background_mean[1], atol=ATOL),
+            np.isclose(img[:, :, 2], background_mean[2], atol=ATOL),
+        )
+    ).astype(np.uint8)
 
-def get_mask_from_path(path):
+    return 1-new_mask
+
+def get_segmentation_mask_from_path(path):
     img = cv2.imread(path)
-    return get_mask(img)
+    return get_segmentation_mask(img)
