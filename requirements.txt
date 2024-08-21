@@ -8,3 +8,7 @@ matplotlib
 scikit-learn
 scikit-image
 colorthief
+rembg
+Pylette
+torch
+torchvision
